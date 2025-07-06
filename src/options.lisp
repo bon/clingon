@@ -26,9 +26,10 @@
 (in-package :cl-user)
 (defpackage :clingon.options
   (:use :cl)
+  (:import-from :split-sequence :split-sequence)
   (:import-from
-   :clingon.utils
-   :join-list)
+    :clingon.utils
+    :join-list)
   (:import-from
     :parse-float
     :parse-float)
@@ -336,7 +337,7 @@
   (apply #'make-instance 'option-csv rest))
 
 (defmethod finalize-option ((o option-csv) &key)
-  (setf (option-value o) (cl-ppcre:split "," (option-value o))))
+  (setf (option-value o) (split-sequence #\, (option-value o))))
 
 ;;;;
 ;;;; Boolean options
